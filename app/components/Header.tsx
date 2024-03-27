@@ -1,5 +1,5 @@
 import {Await, NavLink} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import type {HeaderQuery} from 'storefrontapi.generated';
 import type {LayoutProps} from './Layout';
 import {useRootLoaderData} from '~/root';
@@ -9,11 +9,11 @@ type HeaderProps = Pick<LayoutProps, 'header' | 'cart' | 'isLoggedIn'>;
 type Viewport = 'desktop' | 'mobile';
 
 export function Header({header, isLoggedIn, cart}: HeaderProps) {
-  const {shop, menu} = header;
+  const {menu} = header;
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+        <strong>Yooper Bros</strong>
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -37,48 +37,80 @@ export function HeaderMenu({
   const {publicStoreDomain} = useRootLoaderData();
   const className = `header-menu-${viewport}`;
 
-  function closeAside(event: React.MouseEvent<HTMLAnchorElement>) {
-    if (viewport === 'mobile') {
-      event.preventDefault();
-      window.location.href = event.currentTarget.href;
-    }
-  }
+  const [activeDropDownId, setActiveDropDownId] = useState<string | null>(null);
+
+  const toggleDropdown =
+    (itemId: string) =>
+    (
+      event:
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.TouchEvent<HTMLAnchorElement>,
+    ) => {
+      event.preventDefault(); // Prevent default link behavior
+      setActiveDropDownId((prevId) => (prevId === itemId ? null : itemId)); // Toggle visibility
+    };
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={closeAside}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
-          Home
-        </NavLink>
-      )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
-        // if the url is internal, we strip the domain
         const url =
           item.url.includes('myshopify.com') ||
           item.url.includes(publicStoreDomain) ||
           item.url.includes(primaryDomainUrl)
             ? new URL(item.url).pathname
             : item.url;
+
         return (
-          <NavLink
-            className="header-menu-item"
-            end
-            key={item.id}
-            onClick={closeAside}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
+          <div key={item.id}>
+            <NavLink
+              end
+              prefetch="intent"
+              style={activeLinkStyle}
+              to={url}
+              onClick={item.items?.length ? toggleDropdown(item.id) : undefined}
+              className={item.items.length ? 'flex flex-row' : ''}
+            >
+              {item.title}
+              <span>
+                {item.items?.length ? (
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z" />
+                  </svg>
+                ) : (
+                  ''
+                )}
+              </span>
+            </NavLink>
+            {item.items && (
+              <div
+                className={`${
+                  activeDropDownId === item.id
+                    ? '!flex flex-col w-fit md:absolute border-text border-2 text-text bg-sAccent rounded py-2 px-4'
+                    : 'hidden'
+                }`}
+              >
+                {item.items.map((subItem) => {
+                  // Only proceed if subItem.url is truthy
+                  if (subItem.url) {
+                    const urlObj = new URL(subItem.url);
+                    const relativePath = urlObj.pathname;
+
+                    return (
+                      <a href={relativePath} key={subItem.id}>
+                        {subItem.title}
+                      </a>
+                    );
+                  }
+                })}
+              </div>
+            )}
+          </div>
         );
       })}
     </nav>
