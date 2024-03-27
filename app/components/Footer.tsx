@@ -19,14 +19,16 @@ function FooterMenu({
   menu,
   primaryDomainUrl,
 }: {
-  menu: FooterQuery['menu'];
-  primaryDomainUrl: HeaderQuery['shop']['primaryDomain']['url'];
+  readonly menu: Readonly<FooterQuery['menu']>;
+  readonly primaryDomainUrl: Readonly<
+    HeaderQuery['shop']['primaryDomain']['url']
+  >;
 }) {
   const {publicStoreDomain} = useRootLoaderData();
 
   return (
-    <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
+    <nav className="footer-menu bg-accent" role="navigation">
+      {(menu ?? FALLBACK_FOOTER_MENU).items.map((item, isLoggedIn) => {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
         const url =
@@ -37,19 +39,35 @@ function FooterMenu({
             : item.url;
         const isExternal = !url.startsWith('/');
         return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
+          <a
+            className="text-text"
+            href={url}
+            key={item.id}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             {item.title}
           </a>
         ) : (
-          <NavLink
-            end
-            key={item.id}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
+          <section key={item.id} className="flex flex-row gap-4">
+            <NavLink
+              end
+              key={item.id}
+              prefetch="intent"
+              style={activeLinkStyle}
+              to={url}
+            >
+              {item.title}
+            </NavLink>
+            <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+              {isLoggedIn ? 'Account' : 'Sign in'}
+            </NavLink>
+            <div>
+              <a className="text-text" href="/pages/return-policy">
+                Return Policy
+              </a>
+            </div>
+          </section>
         );
       })}
     </nav>

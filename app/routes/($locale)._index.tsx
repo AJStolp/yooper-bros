@@ -140,7 +140,7 @@ function RecommendedProducts({
                         alt={`product name: ${product.title}`}
                       />
                     </Link>
-                    <section className="bg-sAccent text-text rounded p-2 flex flex-col lg:flex-row lg:justify-between">
+                    <section className="bg-accent text-background rounded p-2 flex flex-col lg:flex-row lg:justify-between">
                       <div className="pb-2">
                         <h3 className="text">{product.title}</h3>
                         <small className="text-sm">

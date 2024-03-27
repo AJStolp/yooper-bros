@@ -5,4 +5,15 @@ import typographyPlugin from '@tailwindcss/typography';
 export default {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   plugins: [formsPlugin, typographyPlugin],
+  theme: {
+    extend: {
+      colors: {
+        text: '#050315',
+        background: '#ffffff',
+        primary: '#C8102E',
+        secondary: '#3F2305',
+        accent: '#2B4D2F',
+      },
+    },
+  },
 };

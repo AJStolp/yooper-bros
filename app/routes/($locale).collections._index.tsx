@@ -39,7 +39,7 @@ export default function Collections() {
 
   return (
     <div className="collections">
-      <h1 className="text-2xl">Cafe Collections</h1>
+      <h1 className="text-2xl">Yooper Roasts</h1>
       {/* <CollectionsGrid collections={filteredCollections} /> */}
       <Pagination connection={{...collections, nodes: filteredCollections}}>
         {({nodes, isLoading, PreviousLink, NextLink}) => (
@@ -60,7 +60,7 @@ export default function Collections() {
 
 function CollectionsGrid({collections}: {collections: CollectionFragment[]}) {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {collections.map((collection, index) => (
         <CollectionItem
           key={collection.id}
