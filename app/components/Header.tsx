@@ -70,7 +70,7 @@ export function HeaderMenu({
               style={activeLinkStyle}
               to={url}
               onClick={item.items?.length ? toggleDropdown(item.id) : undefined}
-              className={item.items.length ? 'flex flex-row' : ''}
+              className={item.items.length ? 'flex flex-row text-text' : ''}
             >
               {item.title}
               <span>

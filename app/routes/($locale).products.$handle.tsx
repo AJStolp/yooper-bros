@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useRef} from 'react';
 import {defer, redirect, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {
   Await,
@@ -115,12 +115,13 @@ function redirectToFirstVariant({
 
 export default function Product() {
   const {product, variants} = useLoaderData<typeof loader>();
-  const {selectedVariant} = product;
+  const images = product.images;
+
   return (
     <div className="product">
-      <ProductImage image={selectedVariant?.image} />
+      <ProductImages images={images} />
       <ProductMain
-        selectedVariant={selectedVariant}
+        selectedVariant={product.selectedVariant}
         product={product}
         variants={variants}
       />
@@ -128,19 +129,58 @@ export default function Product() {
   );
 }
 
-function ProductImage({image}: {image: ProductVariantFragment['image']}) {
-  if (!image) {
-    return <div className="product-image" />;
+function ProductImages({images}) {
+  const carouselRef = useRef<HTMLUListElement>(null);
+  if (!images || images.length === 0) {
+    return <div className="product-images">No images available</div>;
   }
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const {current: carousel} = carouselRef;
+      const scrollAmount = carousel.offsetWidth;
+      if (direction === 'left') {
+        carousel.scrollBy({left: -scrollAmount, behavior: 'smooth'});
+      } else if (direction === 'right') {
+        carousel.scrollBy({left: scrollAmount, behavior: 'smooth'});
+      }
+    }
+  };
+
   return (
-    <div className="product-image">
-      <Image
-        alt={image.altText || 'Product Image'}
-        aspectRatio="1/1"
-        data={image}
-        key={image.id}
-        sizes="(min-width: 45em) 50vw, 100vw"
-      />
+    <div className="flex flex-col items-center justify-center">
+      <div className="relative max-w-2xl mx-auto">
+        {/* Navigation buttons */}
+        <button
+          onClick={() => scroll('left')}
+          className="absolute z-10 left-0 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold hover:underline"
+        >
+          &larr;
+        </button>
+        <ul
+          ref={carouselRef}
+          className="flex snap-x snap-mandatory relative overflow-x-scroll pb-10 scroll-smooth"
+        >
+          {images.edges.map(({node: image}, index) => (
+            <li
+              className="snap-center flex-shrink-0 w-full h-full"
+              key={image.id || index}
+            >
+              <img
+                alt={image.altText || `Product Image ${index + 1}`}
+                src={image.url}
+                className="w-full h-full object-cover"
+              />
+            </li>
+          ))}
+        </ul>
+        <button
+          onClick={() => scroll('right')}
+          className="absolute z-10 right-0 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold hover:underline rounded"
+        >
+          &rarr;
+        </button>
+      </div>
     </div>
   );
 }
@@ -157,7 +197,9 @@ function ProductMain({
   const {title, descriptionHtml} = product;
   return (
     <div className="product-main">
-      <h1>{title}</h1>
+      <h1 className="text-3xl text-black">
+        <strong>{title}</strong>
+      </h1>
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
       <Suspense
@@ -184,12 +226,16 @@ function ProductMain({
       </Suspense>
       <br />
       <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
+      <h2 className="text-xl text-black">
+        <strong>Product Overview</strong>
+      </h2>
       <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
+      <Link
+        to="/collections/all"
+        className="bg-text text-white rounded py-2 px-4"
+      >
+        Continue shopping →
+      </Link>
     </div>
   );
 }
@@ -237,7 +283,6 @@ function ProductForm({
       >
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
-      <br />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -268,14 +313,14 @@ function ProductOptions({option}: {option: VariantOption}) {
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="product-options-item"
+              className="product-options-item text-white border-none bg-accent rounded py-2 px-4"
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
               to={to}
               style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
+                border: isActive ? '2px solid black' : '1px solid transparent',
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
@@ -315,6 +360,7 @@ function AddToCartButton({
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
+            className="bg-primary text-white rounded py-2 px-4"
           >
             {children}
           </button>
@@ -363,30 +409,42 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    options {
-      name
-      values
-    }
-    selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...ProductVariant
-    }
-    variants(first: 1) {
-      nodes {
+      id
+      title
+      vendor
+      handle
+      tags
+      descriptionHtml
+      description
+      options {
+        name
+        values
+      }
+      selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions) {
         ...ProductVariant
       }
+      variants(first: 1) {
+        nodes {
+          ...ProductVariant
+        }
+      }
+      seo {
+        description
+        title
+      }
+      images(first: 250) { # Here is the addition for multiple images
+        edges {
+          node {
+            id
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
     }
-    seo {
-      description
-      title
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
+${PRODUCT_VARIANT_FRAGMENT}
 ` as const;
 
 const PRODUCT_QUERY = `#graphql
@@ -398,6 +456,10 @@ const PRODUCT_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...Product
+      	seo {
+        description
+        title
+      }
     }
   }
   ${PRODUCT_FRAGMENT}

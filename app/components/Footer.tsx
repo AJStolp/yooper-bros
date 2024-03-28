@@ -27,7 +27,7 @@ function FooterMenu({
   const {publicStoreDomain} = useRootLoaderData();
 
   return (
-    <nav className="footer-menu bg-accent" role="navigation">
+    <nav className="footer-menu bg-smokey" role="navigation">
       {(menu ?? FALLBACK_FOOTER_MENU).items.map((item, isLoggedIn) => {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
@@ -125,6 +125,6 @@ function activeLinkStyle({
 }) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
+    color: isPending ? 'grey' : 'black',
   };
 }

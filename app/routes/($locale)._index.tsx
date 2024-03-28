@@ -1,7 +1,13 @@
 import {defer, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
+import {
+  Await,
+  useLoaderData,
+  Link,
+  type MetaFunction,
+  FetcherWithComponents,
+} from '@remix-run/react';
 import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import {CartForm, Image, Money} from '@shopify/hydrogen';
 import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
@@ -39,6 +45,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <Hero />
+      {/* <div className="bg-gradient-to-r from-secondary via-accent to-accent h-2 my-10 rounded"></div> */}
       <FeaturedCollection collection={featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
@@ -118,7 +125,7 @@ function RecommendedProducts({
 }) {
   return (
     <div className="recommended-products">
-      <h2>Coffee Connoisseur's Picks</h2>
+      <h2>Yooper Picks</h2>
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => {
@@ -126,7 +133,7 @@ function RecommendedProducts({
               (product) => product.metafield?.value === 'yb', // Adjust filter logic
             );
             return (
-              <div className="recommended-products-grid">
+              <div className="recommended-products-grid bg-text p-4 rounded">
                 {filteredProducts.map((product) => (
                   <section key={product.id}>
                     <Link
@@ -139,18 +146,15 @@ function RecommendedProducts({
                         sizes="(min-width: 45em) 20vw, 50vw"
                         alt={`product name: ${product.title}`}
                       />
+                      <section className="bg-accent text-background rounded p-2 flex flex-col lg:flex-row lg:justify-between">
+                        <div className="pb-2">
+                          <h3 className="text">{product.title}</h3>
+                          <small className="text-sm">
+                            <Money data={product.priceRange.minVariantPrice} />
+                          </small>
+                        </div>
+                      </section>
                     </Link>
-                    <section className="bg-accent text-background rounded p-2 flex flex-col lg:flex-row lg:justify-between">
-                      <div className="pb-2">
-                        <h3 className="text">{product.title}</h3>
-                        <small className="text-sm">
-                          <Money data={product.priceRange.minVariantPrice} />
-                        </small>
-                      </div>
-                      {/* <AddToCartButton variantId={product.variants.nodes[0].id}>
-                        Add to Cart
-                      </AddToCartButton> */}
-                    </section>
                   </section>
                 ))}
               </div>
@@ -216,7 +220,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: BEST_SELLING, query: "metafield:storefront:yb") {
+    products(first: 50, sortKey: BEST_SELLING, query: "metafield:storefront:yb") {
       nodes {
         ...RecommendedProduct
       }
