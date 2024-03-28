@@ -133,7 +133,6 @@ aside li {
 */
 .header {
   align-items: center;
-  background: #fff;
   display: flex;
   height: var(--header-height);
   padding: 0 1rem;
@@ -181,7 +180,6 @@ aside li {
 * --------------------------------------------------
 */
 .footer {
-  background: var(--color-dark);
   margin-top: auto;
 }
 
@@ -192,9 +190,6 @@ aside li {
   padding: 1rem;
 }
 
-.footer-menu a {
-  color: var(--color-light);
-}
 
 /*
 * --------------------------------------------------
@@ -390,7 +385,7 @@ aside li {
 */
 .product {
   display: grid;
-  @media (min-width: 45em) {
+  @media (min-width: 63.9375em) {
     grid-template-columns: 1fr 1fr;
     grid-gap: 4rem;
   }
@@ -408,7 +403,6 @@ aside li {
 .product-main {
   align-self: start;
   position: sticky;
-  top: 6rem;
 }
 
 .product-price-on-sale {
@@ -469,4 +463,21 @@ aside li {
 
 .account-logout {
   display: inline-block;
+}
+
+
+.p-spec-heading {
+  color: black;
+  padding: 6px 0;
+}
+
+.p-spec {
+  padding-left: 25px;
+  list-style: unset;
+}
+
+.sil {
+  background-image: url("public/assets/pp-yb-coffee.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
 }

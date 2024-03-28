@@ -23,7 +23,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 export async function loader({request, context}: LoaderFunctionArgs) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 50,
   });
 
   const {products} = await storefront.query(ALL_PRODUCTS_QUERY, {
@@ -42,7 +42,7 @@ export default function AllProducts() {
 
   return (
     <div className="collection">
-      <h1>All Products</h1>
+      <h1>All Yooper Products</h1>
       <Pagination connection={products}>
         {({nodes, isLoading, PreviousLink, NextLink}) => (
           <>
