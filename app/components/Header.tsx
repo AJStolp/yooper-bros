@@ -13,7 +13,12 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>Yooper Bros</strong>
+        <img
+          src="/assets/yb-logo-main-nobg-transformed.png"
+          alt="Yooper Bros Logo: Two otters drinking coffee."
+          className="h-14 w-14"
+        />
+        {/* <strong>Yooper Bros</strong> */}
       </NavLink>
       <HeaderMenu
         menu={menu}
