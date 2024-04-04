@@ -63,7 +63,7 @@ export default function Collection() {
 
 function ProductsGrid({products}: {products: ProductItemFragment[]}) {
   return (
-    <div className="products-grid">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {products.map((product, index) => {
         return (
           <ProductItem
