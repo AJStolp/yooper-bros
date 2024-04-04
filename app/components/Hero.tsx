@@ -1,8 +1,8 @@
 export default function Hero() {
   return (
     <section className="mb-12  rounded p-4">
-      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-        <div className="h-full w-full mr-auto place-self-center lg:col-span-7 text-text">
+      <div className="grid max-w-screen-xl lg:px-4 pb-8 pt-4 mx-auto lg:gap-8 xl:gap-0  lg:grid-cols-12">
+        <div className="h-fit w-full mr-auto place-self-center lg:col-span-7 text-text">
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">
             Fuel Your Day with Good Ole Camp Coffee, eh?
           </h1>
@@ -10,8 +10,8 @@ export default function Hero() {
             Indulge in our specially curated collection of coffee cups, tailored
             to suit your campfire adventures or cozy home mornings. Discover the
             ideal brew to elevate your coffee experience, whether you're in the
-            wilderness or snuggled up indoors. The Brew that'll Have You Saying
-            'Eh'mazing!
+            wilderness or snuggled up indoors. We have a brew that'll have you
+            saying 'Eh'mazing!
           </p>
           <a
             href="/collections/all"
@@ -33,7 +33,11 @@ export default function Hero() {
           </a>
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          <img src="/assets/pp-yb-coffee.webp" alt="mockup" />
+          <img
+            src="/assets/yb-logo-main-nobg-transformed.png"
+            className="w-full"
+            alt="mockup"
+          />
         </div>
       </div>
     </section>
