@@ -23,7 +23,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 export async function loader({request, context}: LoaderFunctionArgs) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 50,
+    pageBy: 71, //adjust when adding more products to store.
   });
 
   const {products} = await storefront.query(ALL_PRODUCTS_QUERY, {

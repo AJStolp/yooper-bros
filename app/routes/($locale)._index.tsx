@@ -220,7 +220,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    products(first: 50, sortKey: BEST_SELLING, query: "metafield:storefront:yb") {
+    products(first: 4, sortKey: BEST_SELLING, query: "metafield:storefront:yb") {
       nodes {
         ...RecommendedProduct
       }
