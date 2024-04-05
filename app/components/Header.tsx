@@ -14,9 +14,9 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
         <img
-          src="/assets/yb-logo-main-nobg-transformed.png"
+          src="/assets/cropped-up-nobg-4x.png"
           alt="Yooper Bros Logo: Two otters drinking coffee."
-          className="h-14 w-14"
+          className="h-10 w-fit"
         />
         {/* <strong>Yooper Bros</strong> */}
       </NavLink>

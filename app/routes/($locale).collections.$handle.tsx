@@ -88,7 +88,7 @@ function ProductItem({
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
     <Link
-      className="product-item"
+      className="product-item text-center"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
