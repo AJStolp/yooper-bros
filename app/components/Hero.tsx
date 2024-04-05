@@ -6,7 +6,7 @@ export default function Hero() {
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">
             Fuel Your Day with Good O'le Camp Coffee, eh?
           </h1>
-          <p className="text-accent max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl">
+          <p className="text-secondary max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl">
             Indulge in our specially curated collection of coffee cups, tailored
             to suit your campfire adventures or cozy home mornings. Discover the
             ideal brew to elevate your coffee experience, whether you're in the
