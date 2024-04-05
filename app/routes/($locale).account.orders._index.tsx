@@ -13,7 +13,7 @@ import type {
 } from 'customer-accountapi.generated';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Orders'}];
+  return [{title: 'Yooper Bros Coffee: Orders'}];
 };
 
 export async function loader({request, context}: LoaderFunctionArgs) {

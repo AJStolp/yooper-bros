@@ -21,7 +21,7 @@ export type ActionResponse = {
 };
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Profile'}];
+  return [{title: 'Your Profile'}];
 };
 
 export async function loader({context}: LoaderFunctionArgs) {

@@ -15,7 +15,7 @@ import type {
 import Hero from '~/components/Hero';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'Yooper Bros Coffee | Home'}];
 };
 
 export async function loader({context}: LoaderFunctionArgs) {
