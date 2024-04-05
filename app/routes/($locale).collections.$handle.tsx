@@ -10,7 +10,9 @@ import type {ProductItemFragment} from 'storefrontapi.generated';
 import {useVariantUrl} from '~/lib/variants';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
-  return [{title: `Hydrogen | ${data?.collection.title ?? ''} Collection`}];
+  return [
+    {title: `Yooper Bros Coffee | ${data?.collection.title ?? ''} Collection`},
+  ];
 };
 
 export async function loader({request, params, context}: LoaderFunctionArgs) {
