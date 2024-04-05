@@ -153,7 +153,7 @@ function ProductImages({images}) {
         {/* Navigation buttons */}
         <button
           onClick={() => scroll('left')}
-          className="absolute z-10 left-0 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold hover:underline"
+          className="absolute z-10 left-0 top-1/2 transform -translate-y-1/2 text-secondary text-4xl font-bold hover:underline"
         >
           &larr;
         </button>
@@ -176,7 +176,7 @@ function ProductImages({images}) {
         </ul>
         <button
           onClick={() => scroll('right')}
-          className="absolute z-10 right-0 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold hover:underline rounded"
+          className="absolute z-10 right-0 top-1/2 transform -translate-y-1/2 text-secondary text-4xl font-bold hover:underline rounded"
         >
           &rarr;
         </button>
@@ -232,7 +232,7 @@ function ProductMain({
       <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
       <Link
         to="/collections/all"
-        className="bg-text text-white rounded py-2 px-4"
+        className="bg-primary text-white rounded py-2 px-4"
       >
         Continue shopping →
       </Link>
@@ -313,7 +313,7 @@ function ProductOptions({option}: {option: VariantOption}) {
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="product-options-item text-white border-none bg-accent rounded py-2 px-4"
+              className="product-options-item text-white border-none bg-secondary rounded py-2 px-4"
               key={option.name + value}
               prefetch="intent"
               preventScrollReset

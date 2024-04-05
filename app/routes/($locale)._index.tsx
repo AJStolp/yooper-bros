@@ -146,8 +146,8 @@ function RecommendedProducts({
                         sizes="(min-width: 45em) 20vw, 50vw"
                         alt={`product name: ${product.title}`}
                       />
-                      <section className="bg-accent text-background rounded p-2 flex flex-col lg:flex-row lg:justify-between">
-                        <div className="pb-2">
+                      <section className="bg-secondary text-background rounded p-2 flex flex-col lg:justify-between">
+                        <div className="pb-2 text-center">
                           <h3 className="text">{product.title}</h3>
                           <small className="text-sm">
                             <Money data={product.priceRange.minVariantPrice} />

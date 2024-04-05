@@ -13,7 +13,7 @@ export default function Banner() {
       tabIndex={-1}
       className={`${
         toggle ? 'start-0' : 'hidden'
-      } flex justify-between w-full p-4 border-b border-background bg-accent`}
+      } flex justify-between w-full p-4 border-b border-background bg-secondary`}
     >
       <div className="flex items-center mx-auto">
         <p className="flex items-center text-sm font-normal">
@@ -30,8 +30,8 @@ export default function Banner() {
             <span className="sr-only">Mega Phone</span>
           </span>
           <span className="text-white">
-            <span className="text-accent">Sip in Style:</span> Enjoy Free
-            Shipping on All Our Yooper Roasts!
+            <span className="text-accent">Brew a Taste of the Forest:</span>
+            Enjoy Free Shipping on All Our Yooper Roasts!
             <a href={`/collections/all`} className="shop-now-btn pl-1">
               Shop Now!
             </a>
