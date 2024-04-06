@@ -1,26 +1,11 @@
 import {useLoaderData, Link} from '@remix-run/react';
-import {
-  json,
-  MetaFunction,
-  type LoaderFunctionArgs,
-} from '@shopify/remix-oxygen';
+import {json, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Pagination, getPaginationVariables, Image} from '@shopify/hydrogen';
 import type {CollectionFragment} from 'storefrontapi.generated';
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
-  return [
-    {title: `Yooper Bros Coffee | All Products`},
-    {
-      name: 'description',
-      content:
-        'Explore our exclusive 15oz ceramic coffee mugs, in black and white. Perfect for coffee lovers. Shop now!',
-    },
-  ];
-};
-
 export async function loader({context, request}: LoaderFunctionArgs) {
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 20,
+    pageBy: 4,
   });
 
   const {collections} = await context.storefront.query(COLLECTIONS_QUERY, {
@@ -33,21 +18,16 @@ export async function loader({context, request}: LoaderFunctionArgs) {
 export default function Collections() {
   const {collections} = useLoaderData<typeof loader>();
 
-  const filteredCollections = collections.nodes.filter(
-    (node: any) => node.metafield && node.metafield.value === 'yb',
-  ) as CollectionFragment[];
-
   return (
     <div className="collections">
-      <h1 className="text-2xl">Yooper Roasts</h1>
-      {/* <CollectionsGrid collections={filteredCollections} /> */}
-      <Pagination connection={{...collections, nodes: filteredCollections}}>
+      <h1>Collections</h1>
+      <Pagination connection={collections}>
         {({nodes, isLoading, PreviousLink, NextLink}) => (
           <div>
             <PreviousLink>
               {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
             </PreviousLink>
-            <CollectionsGrid collections={nodes as CollectionFragment[]} />
+            <CollectionsGrid collections={nodes} />
             <NextLink>
               {isLoading ? 'Loading...' : <span>Load more ↓</span>}
             </NextLink>
@@ -104,9 +84,6 @@ const COLLECTIONS_QUERY = `#graphql
     id
     title
     handle
-    metafield(namespace: "tosf", key: "storefront") {
-      value
-    }
     image {
       id
       url
@@ -127,8 +104,7 @@ const COLLECTIONS_QUERY = `#graphql
       first: $first,
       last: $last,
       before: $startCursor,
-      after: $endCursor,
-      query: "metafield:tosf:storefront:yb"
+      after: $endCursor
     ) {
       nodes {
         ...Collection

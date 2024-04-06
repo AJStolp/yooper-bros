@@ -129,12 +129,9 @@ function RecommendedProducts({
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => {
-            const filteredProducts = products.nodes.filter(
-              (product) => product.metafield?.value === 'yb', // Adjust filter logic
-            );
             return (
               <div className="recommended-products-grid bg-text p-4 rounded">
-                {filteredProducts.map((product) => (
+                {products.nodes.map((product) => (
                   <section key={product.id}>
                     <Link
                       className="recommended-product rounded-lg"
@@ -171,9 +168,6 @@ const FEATURED_COLLECTION_QUERY = `#graphql
   fragment FeaturedCollection on Collection {
     id
     title
-    metafield(namespace: "tosf", key: "storefront") {
-      value
-    }
     image {
       id
       url
@@ -185,7 +179,7 @@ const FEATURED_COLLECTION_QUERY = `#graphql
   }
   query FeaturedCollection($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    collections(first: 1,  query: "metafield:tosf:storefront:yb") {
+    collections(first: 1) {
       nodes {
         ...FeaturedCollection
       }
@@ -199,9 +193,6 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     title
     handle
     tags
-    metafield(namespace: "ptosf", key: "storefront") {
-      value
-    }
     priceRange {
       minVariantPrice {
         amount
@@ -220,7 +211,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: BEST_SELLING, query: "metafield:storefront:yb") {
+    products(first: 4, sortKey: BEST_SELLING) {
       nodes {
         ...RecommendedProduct
       }
