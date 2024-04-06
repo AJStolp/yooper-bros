@@ -2,7 +2,28 @@ import {json, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData, type MetaFunction} from '@remix-run/react';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
-  return [{title: `Yooper Bros Coffee | ${data?.page.title ?? ''}`}];
+  let title;
+  let description;
+
+  switch (data?.page.title) {
+    case 'Contact Yooper Bros Coffee':
+      title = `Yooper Bros Coffee | ${data?.page.title ?? ''}`;
+      description =
+        'Connect with Yooper Bros Coffee today! Have questions about our roasts? Our team is here to help. Visit now!';
+      break;
+    case 'Dirt Roads and Lakeside Sippin':
+      title = `Yooper Bros Coffee | ${data?.page.title ?? ''}`;
+      description =
+        'Discover Yooper Bros Coffee story, your destination premium coffee. Learn about our passion for quality & style. Visit now!';
+      break;
+    case 'Return Policy':
+      title = `Yooper Bros Coffee | ${data?.page.title ?? ''}`;
+      description =
+        "Discover Yooper Bros Coffee return policy. Shop with confidence knowing we've got you covered.";
+      break;
+  }
+
+  return [{title}, {name: 'description', content: description}];
 };
 
 export async function loader({params, context}: LoaderFunctionArgs) {
@@ -29,9 +50,12 @@ export default function Page() {
   return (
     <div className="page">
       <header>
-        <h1>{page.title}</h1>
+        <h1 className="text-2xl">{page.title}</h1>
       </header>
-      <main dangerouslySetInnerHTML={{__html: page.body}} />
+      <section
+        className="cms-page"
+        dangerouslySetInnerHTML={{__html: page.body}}
+      />
     </div>
   );
 }

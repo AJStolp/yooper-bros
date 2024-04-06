@@ -11,7 +11,7 @@ import {useVariantUrl} from '~/lib/variants';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
-    {title: 'Yooper Bros Coffee | All Products'},
+    {title: 'Yooper Bros Coffee | All Yooper Roasts'},
     {
       name: 'description',
       content:
