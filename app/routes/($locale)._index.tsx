@@ -8,14 +8,18 @@ import {
 } from '@remix-run/react';
 import {Suspense} from 'react';
 import {CartForm, Image, Money} from '@shopify/hydrogen';
-import type {
-  FeaturedCollectionFragment,
-  RecommendedProductsQuery,
-} from 'storefrontapi.generated';
+import type {FeaturedCollectionFragment} from 'storefrontapi.generated';
 import Hero from '~/components/Hero';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Yooper Bros Coffee | Home'}];
+  return [
+    {title: 'Yooper Bros Coffee | Home'},
+    {
+      name: 'description',
+      content:
+        'Indulge with Yooper Bros Coffee, where every cup is an adventure. Find your brew for campfires or cozy mornings. Shop now for free shipping!',
+    },
+  ];
 };
 
 export async function loader({context}: LoaderFunctionArgs) {

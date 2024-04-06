@@ -13,7 +13,14 @@ import type {
 } from 'customer-accountapi.generated';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Yooper Bros Coffee: Orders'}];
+  return [
+    {title: 'Yooper Bros Coffee: Orders'},
+    {
+      name: 'description',
+      content:
+        'Manage your Yooper Bros Coffee orders here. From tracking to updates, ensure your next cup of brew is on its way. Click for hassle-free service!',
+    },
+  ];
 };
 
 export async function loader({request, context}: LoaderFunctionArgs) {

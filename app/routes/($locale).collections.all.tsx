@@ -14,7 +14,8 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
     {title: 'Yooper Bros Coffee | All Products'},
     {
       name: 'description',
-      content: 'Browse premium coffee. Shop now!',
+      content:
+        'Explore Yooper Bros Roasts to find your perfect brew. From light to dark roasts, discover coffees that inspire your every moment. Start your journey here!',
     },
   ];
 };
@@ -37,7 +38,7 @@ export default function AllProducts() {
 
   return (
     <div className="collection">
-      <h1>All Products</h1>
+      <h1>All Forest Flavors</h1>
       <Pagination connection={products}>
         {({nodes, isLoading, PreviousLink, NextLink}) => (
           <>
