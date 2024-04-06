@@ -11,7 +11,7 @@ type Viewport = 'desktop' | 'mobile';
 export function Header({header, isLoggedIn, cart}: HeaderProps) {
   const {menu} = header;
   return (
-    <header className="header">
+    <header className="header bg-white">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
         <img
           src="/assets/cropped-up-nobg-4x.png"
