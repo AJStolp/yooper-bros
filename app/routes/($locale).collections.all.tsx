@@ -1,4 +1,3 @@
-// Import necessary modules
 import {json, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {
@@ -23,7 +22,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 export async function loader({request, context}: LoaderFunctionArgs) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 71, //adjust when adding more products to store.
+    pageBy: 8,
   });
 
   const {products} = await storefront.query(ALL_PRODUCTS_QUERY, {
@@ -36,20 +35,16 @@ export async function loader({request, context}: LoaderFunctionArgs) {
 export default function AllProducts() {
   const {products} = useLoaderData<typeof loader>();
 
-  const filteredProducts = products.nodes.filter(
-    (node: any) => node.metafield && node.metafield.value === 'yb',
-  ) as ProductItemFragment[];
-
   return (
     <div className="collection">
-      <h1>All Yooper Products</h1>
+      <h1>All Products</h1>
       <Pagination connection={products}>
         {({nodes, isLoading, PreviousLink, NextLink}) => (
           <>
             <PreviousLink>
               {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
             </PreviousLink>
-            <ProductsGrid products={filteredProducts} />
+            <ProductsGrid products={nodes} />
             <br />
             <NextLink>
               {isLoading ? 'Loading...' : <span>Load more ↓</span>}
@@ -88,7 +83,7 @@ function ProductItem({
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
     <Link
-      className="product-item text-center"
+      className="product-item"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
@@ -120,9 +115,6 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
-    metafield(namespace: "ptosf", key: "storefront") {
-      value
-    }
     featuredImage {
       id
       altText
@@ -149,38 +141,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
   }
 ` as const;
 
-// const ALL_PRODUCTS_QUERY = `#graphql
-//   ${PRODUCT_ITEM_FRAGMENT}
-//   query AllProducts(
-//     $country: CountryCode
-//     $language: LanguageCode
-//     $first: Int
-//     $last: Int
-//     $startCursor: String
-//     $endCursor: String
-//   ) @inContext(country: $country, language: $language) {
-//     products(
-//       first: $first
-//       last: $last
-//       before: $startCursor
-//       after: $endCursor
-//     ) {
-//       nodes {
-//         ...ProductItem
-//         tags
-
-//       }
-//       pageInfo {
-//         hasPreviousPage
-//         hasNextPage
-//         endCursor
-//         startCursor
-//       }
-//     }
-//   }
-// ` as const;
-
-const ALL_PRODUCTS_QUERY = `
+const ALL_PRODUCTS_QUERY = `#graphql
   ${PRODUCT_ITEM_FRAGMENT}
   query AllProducts(
     $country: CountryCode
@@ -195,11 +156,11 @@ const ALL_PRODUCTS_QUERY = `
       last: $last
       before: $startCursor
       after: $endCursor
-      query: "metafield:ptosf.storefront:yb"
     ) {
       nodes {
         ...ProductItem
         tags
+
       }
       pageInfo {
         hasPreviousPage
