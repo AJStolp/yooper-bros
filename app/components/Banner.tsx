@@ -1,6 +1,10 @@
 import {useState} from 'react';
 
-export default function Banner() {
+interface BannerProps {
+  code: string;
+}
+
+export default function Banner({code}: BannerProps) {
   const [toggle, setToggle] = useState(true);
 
   function toggleBannerVisibility() {
@@ -30,8 +34,9 @@ export default function Banner() {
             <span className="sr-only">Mega Phone</span>
           </span>
           <span className="text-white">
-            <span className="text-accent">Brew a Taste of the Forest:</span>
-            Enjoy Free Shipping on All Our Yooper Roasts!
+            Use code:
+            <span className="text-text px-1">{`${code}`}</span>
+            For 10% off you first order plus Enjoy Free Shipping!
             <a href={`/collections/all`} className="shop-now-btn pl-1">
               Shop Now!
             </a>
