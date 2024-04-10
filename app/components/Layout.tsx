@@ -14,6 +14,7 @@ import {
   PredictiveSearchResults,
 } from '~/components/Search';
 import Banner from './Banner';
+import Message from './Message';
 
 export type LayoutProps = {
   cart: Promise<CartApiQueryFragment | null>;
@@ -35,7 +36,7 @@ export function Layout({
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside menu={header?.menu} shop={header?.shop} />
-      <Banner />
+      <Banner code="rusticRoad1115" />
       {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
       <main className="max-w-screen-sm lg:max-w-screen-xl md:m-auto md:p-4">
         {children}
