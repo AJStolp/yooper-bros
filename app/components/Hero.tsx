@@ -7,8 +7,8 @@ export default function Hero() {
             Fuel Your Day with Good O'le Camp Coffee, eh?
           </h1>
           <p className="text-secondary max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl">
-            Indulge in our specially curated collection of coffee cups, tailored
-            to suit your campfire adventures or cozy home mornings. Discover the
+            Indulge in our specially curated collection of coffee, tailored to
+            suit your campfire adventures or cozy home mornings. Discover the
             ideal brew to elevate your coffee experience, whether you're in the
             wilderness or snuggled up indoors. We have a brew that'll have you
             saying 'Eh'mazing!
