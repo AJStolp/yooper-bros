@@ -14,7 +14,6 @@ import {
   PredictiveSearchResults,
 } from '~/components/Search';
 import Banner from './Banner';
-import Message from './Message';
 
 export type LayoutProps = {
   cart: Promise<CartApiQueryFragment | null>;
