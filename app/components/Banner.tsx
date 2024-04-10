@@ -36,7 +36,7 @@ export default function Banner({code}: BannerProps) {
           <span className="text-white">
             Use code:
             <span className="text-text px-1">{`${code}`}</span>
-            For 10% off you first order plus Enjoy Free Shipping!
+            for 10% off your first order + Enjoy Free Shipping!
             <a href={`/collections/all`} className="shop-now-btn pl-1">
               Shop Now!
             </a>
