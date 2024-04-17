@@ -1,5 +1,10 @@
-import {Suspense, useRef} from 'react';
-import {defer, redirect, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {Suspense, useEffect, useRef} from 'react';
+import {
+  LinksFunction,
+  defer,
+  redirect,
+  type LoaderFunctionArgs,
+} from '@shopify/remix-oxygen';
 import {
   Await,
   Link,
@@ -27,21 +32,21 @@ import type {
 } from '@shopify/hydrogen/storefront-api-types';
 import {getVariantUrl} from '~/lib/variants';
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
-  const canonicalUrl =
-    data && data.product?.handle
-      ? `https://yooperbroscoffee.com/products/${data.product.handle}?Grind=Ground&Size=12oz`
-      : '';
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: 'canonical',
+      href: 'https://yooperbroscoffee.com/products/', // Placeholder URL
+    },
+  ];
+};
 
+export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
     {title: `Yooper Bros Coffee | ${data?.product?.title ?? ''}`},
     {
       name: 'description',
       content: `${data?.product?.seo?.description ?? ''}`,
-    },
-    {
-      rel: 'canonical',
-      href: canonicalUrl,
     },
   ];
 };
@@ -131,6 +136,16 @@ function redirectToFirstVariant({
 export default function Product() {
   const {product, variants} = useLoaderData<typeof loader>();
   const images = product.images;
+
+  useEffect(() => {
+    if (product) {
+      const canonicalUrl = `https://yooperbroscoffee.com/products/${product.handle}?Grind=Ground&Size=12oz`;
+      const canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (canonicalLink) {
+        canonicalLink.setAttribute('href', canonicalUrl);
+      }
+    }
+  }, [product]);
 
   return (
     <div className="product">
