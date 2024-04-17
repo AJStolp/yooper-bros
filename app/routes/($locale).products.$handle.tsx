@@ -28,9 +28,10 @@ import type {
 import {getVariantUrl} from '~/lib/variants';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
-  const canonicalUrl = data
-    ? `https://yooperbroscoffee.com/products/${data.product?.handle ?? ''}`
-    : '';
+  const canonicalUrl =
+    data && data.product?.handle
+      ? `https://yooperbroscoffee.com/products/${data.product.handle}?Grind=Ground&Size=12oz`
+      : '';
 
   return [
     {title: `Yooper Bros Coffee | ${data?.product?.title ?? ''}`},
