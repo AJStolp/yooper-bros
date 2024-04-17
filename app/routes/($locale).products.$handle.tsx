@@ -28,11 +28,19 @@ import type {
 import {getVariantUrl} from '~/lib/variants';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
+  const canonicalUrl = data
+    ? `https://yooperbroscoffee.com/products/${data.product?.handle ?? ''}`
+    : '';
+
   return [
-    {title: `Yooper Bros Coffee | ${data?.product.title ?? ''}`},
+    {title: `Yooper Bros Coffee | ${data?.product?.title ?? ''}`},
     {
       name: 'description',
-      content: `${data?.product.seo.description}`,
+      content: `${data?.product?.seo?.description ?? ''}`,
+    },
+    {
+      rel: 'canonical',
+      href: canonicalUrl,
     },
   ];
 };
