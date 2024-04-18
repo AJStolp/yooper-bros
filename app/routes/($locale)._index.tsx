@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
     {
       name: 'description',
       content:
-        'Indulge with Yooper Bros Coffee, where every cup is an adventure. Find your brew for campfires or cozy mornings. Shop now for free shipping!',
+        'Elevate your coffee ritual with our 15oz ceramic mugs! Enjoy your favorite brew with our customizable, machine-washable mugs. Free shipping & discounts available. USA-made.',
     },
   ];
 };
