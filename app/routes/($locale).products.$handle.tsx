@@ -1,11 +1,5 @@
-import {Suspense, useEffect, useRef} from 'react';
-import {
-  LinksFunction,
-  MetaDescriptor,
-  defer,
-  redirect,
-  type LoaderFunctionArgs,
-} from '@shopify/remix-oxygen';
+import {Suspense, useRef} from 'react';
+import {defer, redirect, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {
   Await,
   Link,
@@ -38,7 +32,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
     {
       tagName: 'link',
       rel: 'canonical',
-      href: `https://YooperBrosCoffee.com/${data?.product.handle}?Grind=Ground&Size=12oz`,
+      href: `https://YooperBrosCoffee.com/products/${data?.product.handle}?Grind=Ground&Size=12oz`,
     },
     {title: `Yooper Bros Coffee | ${data?.product?.title ?? ''}`},
     {
