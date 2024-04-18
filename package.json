@@ -14,7 +14,6 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
-    "@remix-run/cloudflare": "^2.8.1",
     "@remix-run/react": "^2.8.0",
     "@remix-run/server-runtime": "^2.8.0",
     "@shopify/cli": "3.56.3",
