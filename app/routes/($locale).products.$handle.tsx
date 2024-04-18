@@ -1,6 +1,7 @@
 import {Suspense, useEffect, useRef} from 'react';
 import {
   LinksFunction,
+  MetaDescriptor,
   defer,
   redirect,
   type LoaderFunctionArgs,
@@ -34,6 +35,11 @@ import {getVariantUrl} from '~/lib/variants';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
+    {
+      tagName: 'link',
+      rel: 'canonical',
+      href: `https://YooperBrosCoffee.com/${data?.product.handle}?Grind=Ground&Size=12oz`,
+    },
     {title: `Yooper Bros Coffee | ${data?.product?.title ?? ''}`},
     {
       name: 'description',
@@ -45,11 +51,6 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 export async function loader({params, request, context}: LoaderFunctionArgs) {
   const {handle} = params;
   const {storefront} = context;
-
-  const canonicalUrl = `https://yooperbroscoffee.com/products/${handle}?Grind=Ground&Size=12oz`;
-
-  // Set the canonical URL in the loader context
-  context.canonicalUrl = canonicalUrl;
 
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -129,39 +130,9 @@ function redirectToFirstVariant({
   );
 }
 
-function handleCanonical(product) {
-  // Extract product handle from product data
-  const handle = product?.handle;
-
-  // Construct the canonical URL based on the product handle
-  const canonicalUrl = handle
-    ? `https://yooperbroscoffee.com/products/${handle}?Grind=Ground&Size=12oz`
-    : null;
-
-  // Update the canonical link dynamically
-  if (canonicalUrl) {
-    const canonicalLink = document.createElement('link');
-    canonicalLink.rel = 'canonical';
-    canonicalLink.href = canonicalUrl;
-
-    // Remove any existing canonical link and append the new one to the document head
-    const existingCanonicalLink = document.querySelector(
-      'link[rel="canonical"]',
-    );
-    if (existingCanonicalLink) {
-      document.head.removeChild(existingCanonicalLink);
-    }
-    document.head.appendChild(canonicalLink);
-  }
-}
-
 export default function Product() {
   const {product, variants} = useLoaderData<typeof loader>();
   const images = product.images;
-
-  useEffect(() => {
-    handleCanonical(product);
-  }, [product]);
 
   return (
     <div className="product">
