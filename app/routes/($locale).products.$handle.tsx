@@ -32,7 +32,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
     {
       tagName: 'link',
       rel: 'canonical',
-      href: `https://YooperBrosCoffee.com/products/${data?.product.handle}?Grind=Ground&Size=12oz`,
+      href: `https://YooperBrosCoffee.com/products/${data?.product.handle}`,
     },
     {title: `Yooper Bros Coffee | ${data?.product?.title ?? ''}`},
     {
