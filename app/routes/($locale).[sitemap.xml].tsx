@@ -59,7 +59,8 @@ function generateSitemap({
   const products = flattenConnection(data.products)
     .filter((product) => product.onlineStoreUrl)
     .map((product) => {
-      const url = `${baseUrl}/products/${xmlEncode(product.handle)}`;
+      const grind = '?Grind=Ground&Size=12oz';
+      const url = `${baseUrl}/products/${xmlEncode(product.handle + grind)}`;
 
       const productEntry: Entry = {
         url,
