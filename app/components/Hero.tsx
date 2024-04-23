@@ -34,7 +34,7 @@ export default function Hero() {
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <img
-            src="/assets/yb-logo-main-nobg-transformed.png"
+            src="/assets/yb-logo-main-nobg-upscaled.webp"
             className="w-full"
             alt="mockup"
           />
