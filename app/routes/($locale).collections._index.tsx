@@ -1,7 +1,26 @@
 import {useLoaderData, Link} from '@remix-run/react';
-import {json, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {
+  MetaFunction,
+  json,
+  type LoaderFunctionArgs,
+} from '@shopify/remix-oxygen';
 import {Pagination, getPaginationVariables, Image} from '@shopify/hydrogen';
 import type {CollectionFragment} from 'storefrontapi.generated';
+
+export const meta: MetaFunction<typeof loader> = ({data}) => {
+  return [
+    {
+      title: `Yooper Bros Coffee | ${
+        data?.collections.nodes.map((i) => i.title) ?? ''
+      } Collections`,
+    },
+    {
+      name: 'description',
+      content:
+        'Discover Yooper Bros Coffee’s full range of freshly roasted coffees. From robust single-origin to exquisite blends, find your perfect coffee here.',
+    },
+  ];
+};
 
 export async function loader({context, request}: LoaderFunctionArgs) {
   const paginationVariables = getPaginationVariables(request, {
