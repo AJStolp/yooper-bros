@@ -15,7 +15,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
     {
       name: 'description',
       content:
-        'Explore Yooper Bros Roasts to find your perfect brew. From light to dark roasts, discover coffees that inspire your every moment. Start your journey here!',
+        'Discover Yooper Bros Coffee’s full range of freshly roasted coffees. From robust single-origin to exquisite blends, find your perfect coffee here.',
     },
   ];
 };

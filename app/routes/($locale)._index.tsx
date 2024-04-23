@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
     {
       name: 'description',
       content:
-        'Elevate your coffee ritual with our 15oz ceramic mugs! Enjoy your favorite brew with our customizable, machine-washable mugs. Free shipping & discounts available. USA-made.',
+        'Freshly roasted in the USA, Yooper Bros Coffee offers premium blends for discerning tastes. Experience the finest single-origin and specialty coffees delivered directly to your door.',
     },
   ];
 };
