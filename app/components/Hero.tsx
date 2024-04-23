@@ -4,7 +4,7 @@ export default function Hero() {
       <div className="grid max-w-screen-xl lg:px-4 pb-8 pt-4 mx-auto lg:gap-8 xl:gap-0  lg:grid-cols-12">
         <div className="h-fit w-full mr-auto place-self-center lg:col-span-7 text-text">
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">
-            Fuel Your Day with Good O'le Camp Coffee, eh?
+            Fuel Your Day with Good Ole Camp Coffee, eh?
           </h1>
           <p className="text-secondary max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl">
             Indulge in our specially curated collection of coffee, tailored to
