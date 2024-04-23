@@ -14,7 +14,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
     <header className="header bg-white">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
         <img
-          src="/assets/cropped-up-nobg-4x.png"
+          src="/assets/cropped-up-nobg-4x.webp"
           alt="An outline of the Upper Peninsula of Michigan."
           className="h-10"
         />
