@@ -59,9 +59,9 @@ function FooterMenu({
             >
               {item.title}
             </NavLink>
-            <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+            {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
               {isLoggedIn ? 'Account' : 'Sign in'}
-            </NavLink>
+            </NavLink> */}
             <div>
               <a className="text-text" href="/pages/return-policy">
                 Return Policy
