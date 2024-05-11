@@ -34,13 +34,22 @@ export default function Banner({code}: BannerProps) {
             <span className="sr-only">Mega Phone</span>
           </span>
           <span className="text-white">
+            Enjoy Free Shipping on all of our roasts!
+            <a
+              href={`/collections/all`}
+              className="shop-now-btn pl-1 text-[#CAFF38]"
+            >
+              Shop Now!
+            </a>
+          </span>
+          {/* <span className="text-white">
             Use code:
             <span className="text-[#CAFF38] px-1">{`${code}`}</span>
             for 10% off your Mother's Day order + Enjoy Free Shipping!
             <a href={`/collections/all`} className="shop-now-btn pl-1">
               Shop Now!
             </a>
-          </span>
+          </span> */}
         </p>
       </div>
       <div className="flex items-center">
@@ -71,26 +80,3 @@ export default function Banner({code}: BannerProps) {
     </div>
   );
 }
-
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
-      }
-    }
-  }
-` as const;
